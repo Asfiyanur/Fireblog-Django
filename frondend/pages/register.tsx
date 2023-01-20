@@ -7,8 +7,8 @@ import { RegisterType } from "../types";
 type Props = {};
 
 const register = (props: Props) => {
-  const [registerInfo, setRegisterInfo] = useState();
-  const { registerFunc } = useAuth();
+  const { errorsMessage, registerFunc } = useAuth();
+  // console.log(errorsMessage);
 
   const {
     register,
@@ -26,28 +26,31 @@ const register = (props: Props) => {
         <title>Register</title>
       </Head>
 
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex  justify-center items-center h-screen">
         <form
-          className="flex flex-col p-6 gap-6"
+          className=" flex flex-col gap-6 p-6"
           onSubmit={handleSubmit(onSubmit)}>
           <input
             type="text"
             placeholder="Username"
             {...register("username", { required: true })}
           />
-          {errors.username && <p>Girmek zorunludur</p>}
+          {errorsMessage?.username?.map((item, index) => (
+            <p key={index}>{item}</p>
+          ))}
           <input
-            type="text"
+            type="email"
             placeholder="Email"
             {...register("email", { required: true })}
           />
-          {errors.email && <p>Girmek zorunludur</p>}
+          {errorsMessage?.email?.map((item, index) => (
+            <p key={index}>{item}</p>
+          ))}
           <input
             type="text"
             placeholder="First Name"
             {...register("first_name")}
           />
-
           <input
             type="text"
             placeholder="Last Name"
@@ -58,13 +61,18 @@ const register = (props: Props) => {
             placeholder="Password"
             {...register("password", { required: true })}
           />
-          {errors.password && <p>Girmek zorunludur</p>}
+          {errorsMessage?.password?.map((item, index) => (
+            <p key={index}>{item}</p>
+          ))}
           <input
             type="text"
             placeholder="Password Again"
             {...register("password2", { required: true })}
           />
-          <button>register</button>
+          {errorsMessage?.password2?.map((item, index) => (
+            <p key={index}>{item}</p>
+          ))}
+          <button type="submit">Register</button>
         </form>
       </div>
     </div>
@@ -72,5 +80,3 @@ const register = (props: Props) => {
 };
 
 export default register;
-
-// tsrafce !!!
